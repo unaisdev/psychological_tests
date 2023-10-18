@@ -66,8 +66,6 @@ export const TestProvider = ({children}: PropsWithChildren) => {
       return;
     }
 
-    console.log('answeredIndex', answerIndex);
-    console.log('questionIndex', questionIndex);
     setProcessing(true);
 
     setSelectedOptions(prevOptions => {
