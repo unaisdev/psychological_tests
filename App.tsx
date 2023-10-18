@@ -1,9 +1,15 @@
 import React from 'react';
 
-import Navigation from '@app/navigation';
+import AppNavigator from '@app/navigation';
+import {StatusBar} from 'react-native';
 
 const App = (): JSX.Element => {
-  return <Navigation />;
+  return (
+    <>
+      <StatusBar barStyle={'dark-content'} />
+      <AppNavigator />
+    </>
+  );
 };
 
 export default App;
