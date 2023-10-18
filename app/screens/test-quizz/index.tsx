@@ -8,9 +8,7 @@ import useStackNavigation from '@app/hooks/useStackNavigation';
 import {GoBack, RefreshIcon} from '@app/constants/icons';
 import {ScrollView, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {Checkbox, ProgressBar} from 'react-native-paper';
-import {AnswerScale, answerScaleValues} from '@app/types';
-import {DATA_API} from '@app/data';
-import {Float} from 'react-native/Libraries/Types/CodegenTypes';
+import {useActiveTestContext} from '@app/context/Test/hooks/useActiveTestContext';
 
 const TestQuizzScreen = ({
   route,
@@ -19,73 +17,16 @@ const TestQuizzScreen = ({
 }) => {
   const test = route.params;
   const navigation = useStackNavigation();
-  const [progress, setProgress] = useState(0);
-  const [processing, setProcessing] = useState(false); // Nuevo estado para controlar el procesamiento
-
-  // Define un estado para mantener un registro de las selecciones de los checkboxes.
-  const [selectedOptions, setSelectedOptions] = useState(
-    test.questions.map(() => 0),
-  );
-  const [selectedValues, setSelectedValues] = useState(
-    Array(test.questions.length).fill(0.0 as Float),
-  );
-
-  // Función para reiniciar el test
-  const resetTest = () => {
-    setSelectedOptions(test.questions.map(() => 0));
-    setSelectedValues(test.questions.map(() => 0));
-    setProgress(0);
-  };
-
-  console.log('values', selectedValues);
-
-  console.log('selected', selectedOptions);
-
-  // Crear un objeto que asigne valores numéricos a las claves de AnswerScale
-
-  console.log(test.id, test.title);
-  const answers: {[key in keyof AnswerScale]: number} = useMemo(() => {
-    return DATA_API.tests[test.id - 1]?.answers; // Obtiene las respuestas del objeto DATA_API
-  }, [test.id]);
-
-  // Función para manejar los cambios en los checkboxes.
-  const handleCheckboxChange = (
-    questionIndex: number,
-    key: keyof AnswerScale,
-  ) => {
-    if (processing) {
-      return; // Evita procesar cambios si ya se está procesando
-    }
-    console.log('questionIndex', questionIndex);
-    setProcessing(true); // Indica que se está procesando la selección del checkbox
-
-    setSelectedOptions(prevOptions => {
-      return prevOptions.map((option, index) => {
-        if (index === questionIndex) {
-          return answerScaleValues[key];
-        }
-        return option;
-      });
-    });
-
-    setSelectedValues(prevValues => {
-      prevValues[questionIndex] = answers[key];
-
-      const questionsAnswered = prevValues.filter(
-        option => option !== 0,
-      ).length;
-      const newProgress = questionsAnswered / test.questions.length;
-      setProgress(newProgress);
-      setProcessing(false); // Indica que el procesamiento ha terminado
-
-      return [...prevValues]; // Devolvemos un nuevo arreglo con los cambios
-    });
-  };
-
-  // Este efecto se ejecutará cuando 'selectedOptions' o 'progress' cambien.
-  useEffect(() => {
-    console.log(progress);
-  }, [selectedOptions, progress]);
+  const {
+    answered,
+    answers,
+    progress,
+    handleActiveTest,
+    handleCheckboxChange,
+    resetTest,
+    selectedValues,
+    selectedOptions,
+  } = useActiveTestContext();
 
   return (
     <Layout style={{flex: 1}}>
@@ -136,20 +77,20 @@ const TestQuizzScreen = ({
             <Text style={{fontSize: 18, fontWeight: '500', marginBottom: 12}}>
               {question}
             </Text>
-            {Object.keys(answers).map(option => {
-              const optionKey = option as keyof AnswerScale; // Convertir 'option' a keyof AnswerScale
+            {answers?.map(option => {
               return (
                 <Checkbox.Item
-                  key={option}
-                  label={optionKey}
+                  key={option.question}
+                  label={option.question}
                   labelStyle={{fontSize: 14}}
                   status={
-                    selectedOptions[questionIndex] ===
-                    answerScaleValues[optionKey]
+                    selectedOptions[questionIndex] === option.value
                       ? 'checked'
                       : 'unchecked'
                   }
-                  onPress={() => handleCheckboxChange(questionIndex, optionKey)}
+                  onPress={() =>
+                    handleCheckboxChange(option.value, questionIndex)
+                  }
                 />
               );
             })}

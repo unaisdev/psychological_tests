@@ -8,6 +8,7 @@ import {GoBack, StartTestIcon} from '@app/constants/icons';
 import {NavigationStackScreens} from '@app/navigation';
 import {RouteProp} from '@react-navigation/native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useActiveTestContext} from '@app/context/Test/hooks/useActiveTestContext';
 
 const StartTestQuizzScreen = ({
   route,
@@ -16,8 +17,14 @@ const StartTestQuizzScreen = ({
 }) => {
   const {top} = useSafeAreaInsets();
   const test = route.params;
+  const {handleActiveTest} = useActiveTestContext();
 
   const navigation = useStackNavigation();
+
+  const handleStartTest = () => {
+    handleActiveTest(test);
+    navigation.navigate('Test', {...test});
+  };
 
   return (
     <Layout style={[styles.container, {marginTop: top}]}>
@@ -47,7 +54,7 @@ const StartTestQuizzScreen = ({
       <Button
         icon={<StartTestIcon color="white" size={22} />}
         style={styles.startButton}
-        handleOnPress={() => navigation.navigate('Test', {...test})}>
+        handleOnPress={handleStartTest}>
         <Text style={{color: 'white', fontSize: 18}}>Empezar test</Text>
       </Button>
     </Layout>
