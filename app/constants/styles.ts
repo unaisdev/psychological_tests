@@ -7,3 +7,9 @@ export const styles = (color?: ColorValue) => {
     },
   });
 };
+
+export const globalStyles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});

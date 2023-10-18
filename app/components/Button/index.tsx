@@ -11,12 +11,14 @@ import Text from '../Text';
 
 interface Props extends PropsWithChildren<TouchableOpacityProps> {
   handleOnPress: () => void;
+  icon?: React.ReactNode;
 }
 
-const Button = ({children: title, handleOnPress, style}: Props) => {
+const Button = ({children: title, handleOnPress, style, icon}: Props) => {
   return (
     <TouchableOpacity onPress={handleOnPress}>
       <View style={[styles.container, style]}>
+        {icon}
         <Text style={styles.text}>{title}</Text>
       </View>
     </TouchableOpacity>
@@ -25,15 +27,12 @@ const Button = ({children: title, handleOnPress, style}: Props) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'red',
     borderRadius: 12,
+    columnGap: 12,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'flex-end',
   },
   text: {
-    paddingHorizontal: 18,
-    paddingVertical: 12,
     fontSize: 14,
   },
 });

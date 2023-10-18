@@ -1,4 +1,4 @@
-import {styles} from '@app/constants';
+import {styles} from '@app/constants/styles';
 import React from 'react';
 
 import {PropsWithChildren} from 'react';
