@@ -1,10 +1,10 @@
-import {NavigationStackScreens} from '@app/navigation';
+import {NavigationTabScreens} from '@app/navigation';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
-export default function useStackNavigation() {
+export default function useTabNavigation() {
   const navigation =
-    useNavigation<NativeStackNavigationProp<NavigationStackScreens>>();
+    useNavigation<NativeStackNavigationProp<NavigationTabScreens>>();
 
   if (navigation === undefined) {
     throw new Error(
