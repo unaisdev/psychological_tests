@@ -14,6 +14,7 @@ module.exports = {
           '@hooks': './app/hooks',
         },
       },
+      'react-native-reanimated/plugin',
     ],
   ],
 };
