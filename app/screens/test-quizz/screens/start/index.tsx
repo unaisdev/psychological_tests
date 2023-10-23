@@ -30,7 +30,7 @@ const StartTestQuizzScreen = ({
     <Layout style={[styles.container, {marginTop: top}]}>
       <View style={styles.header}>
         <Button
-          icon={<GoBack color="black" size={30} />}
+          icon={<GoBack color="#8E8EA9" size={30} />}
           handleOnPress={() => navigation.goBack()}
         />
       </View>
@@ -69,8 +69,8 @@ const styles = StyleSheet.create({
   header: {
     width: '100%',
     height: 64,
-    paddingLeft: 20,
-    paddingTop: 20,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',

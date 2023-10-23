@@ -64,7 +64,6 @@ const AppNavigator = () => {
       <Stack.Navigator
         initialRouteName="Tabs"
         screenOptions={{
-          animation: 'slide_from_right',
           headerShown: false,
         }}>
         <Stack.Screen
@@ -75,10 +74,28 @@ const AppNavigator = () => {
         <Stack.Screen
           name="StartTest"
           component={StartTestQuizzScreen}
-          options={{headerShown: false}}
+          options={{
+            animation: 'slide_from_right',
+            headerShown: false,
+            // presentation: Platform.OS === 'ios' ? 'modal' : 'card',
+          }}
         />
-        <Stack.Screen name="ResultTest" component={ResultTestScreen} />
-        <Stack.Screen name="Test" component={TestQuizzScreen} />
+        <Stack.Screen
+          name="ResultTest"
+          component={ResultTestScreen}
+          options={{
+            headerShown: false,
+            // presentation: Platform.OS === 'ios' ? 'modal' : 'card',
+          }}
+        />
+        <Stack.Screen
+          name="Test"
+          component={TestQuizzScreen}
+          options={{
+            headerShown: false,
+            // presentation: Platform.OS === 'ios' ? 'modal' : 'card',
+          }}
+        />
         <Stack.Screen name="Category" component={CategoryScreen} />
       </Stack.Navigator>
     </NavigationContainer>
