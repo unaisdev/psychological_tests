@@ -5,9 +5,9 @@ import Layout from '@app/components/Layout';
 import {RouteProp} from '@react-navigation/native';
 import {NavigationStackScreens} from '@app/navigation';
 import {ScrollView, StyleSheet, TouchableOpacity, View} from 'react-native';
-import useStackNavigation from '@app/hooks/useStackNavigation';
+import useStackNavigation from '@app/navigation/hooks/useStackNavigation';
 import {GoBack} from '@app/constants/icons';
-import {DATA_API} from '@app/data';
+import {useDataContext} from '@app/context/Data/hooks/useDataContext';
 
 const CategoryScreen = ({
   route,
@@ -16,12 +16,13 @@ const CategoryScreen = ({
 }) => {
   const {name, desc, id} = route.params;
   const navigation = useStackNavigation();
+  const {data} = useDataContext();
 
   return (
     <Layout style={styles.container}>
       <View style={styles.header}>
         <Button
-          icon={<GoBack color="black" size={30} />}
+          icon={<GoBack color="#8E8EA9" size={30} />}
           handleOnPress={() => navigation.goBack()}
         />
       </View>
@@ -30,7 +31,7 @@ const CategoryScreen = ({
         <Text style={styles.desc}>{desc}</Text>
       </View>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
-        {DATA_API.tests
+        {data.tests
           .filter(item => item.category === id)
           .map(item => {
             return (
@@ -60,8 +61,8 @@ const styles = StyleSheet.create({
   },
   header: {
     height: 64,
-    paddingLeft: 20,
-    paddingTop: 20,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',

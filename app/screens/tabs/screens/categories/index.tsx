@@ -4,11 +4,12 @@ import {Text} from '@app/components';
 import Layout from '@app/components/Layout';
 import {ScrollView, StyleSheet, TouchableOpacity, View} from 'react-native';
 import useStackNavigation from '@app/hooks/useStackNavigation';
-import {DATA_API} from '@app/data';
 import {globalStyles} from '@app/constants/styles';
+import {useDataContext} from '@app/context/Data/hooks/useDataContext';
 
 const Categories = () => {
   const navigation = useStackNavigation();
+  const {data} = useDataContext();
 
   return (
     <Layout style={globalStyles.container}>
@@ -20,7 +21,7 @@ const Categories = () => {
           </Text>
         </View>
         <View style={styles.categories}>
-          {DATA_API.categories.map(item => {
+          {data.categories.map(item => {
             return (
               <TouchableOpacity
                 key={item.id}

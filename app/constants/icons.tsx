@@ -16,7 +16,27 @@ export const HomeIcon = ({color, focused, size}: Props) => {
 export const GoBack = ({color, focused, size}: Props) => {
   return (
     <MaterialIcons
-      name="arrow-left"
+      name="arrow-back-ios-new"
+      color={color}
+      size={focused ? 26 : 22 ?? size ?? 22}
+    />
+  );
+};
+
+export const SwiperLeftArrow = ({color, focused, size}: Props) => {
+  return (
+    <MaterialIcons
+      name="arrow-back"
+      color={color}
+      size={focused ? 26 : 22 ?? size}
+    />
+  );
+};
+
+export const SwiperRightArrow = ({color, focused, size}: Props) => {
+  return (
+    <MaterialIcons
+      name="arrow-forward"
       color={color}
       size={focused ? 26 : 22 ?? size}
     />
