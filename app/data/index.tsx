@@ -79,11 +79,11 @@ export const DATA_API = {
         'Me sobresalto con facilidad ante ruidos o sorpresas inesperadas.',
       ],
       answers: [
-        {question: 'Poco de acuerdo', value: 1},
-        {question: 'Nada de acuerdo', value: 2},
-        {question: 'Ni de acuerdo ni en desacuerdo', value: 3},
-        {question: 'Bastante de acuerdo', value: 4},
-        {question: 'Totalmente de acuerdo', value: 5},
+        {answer: 'Poco de acuerdo', value: 1},
+        {answer: 'Nada de acuerdo', value: 2},
+        {answer: 'Ni de acuerdo ni en desacuerdo', value: 3},
+        {answer: 'Bastante de acuerdo', value: 4},
+        {answer: 'Totalmente de acuerdo', value: 5},
       ],
       results: [
         {
@@ -127,30 +127,30 @@ export const DATA_API = {
         'A veces considero la posibilidad de hacerme daño a mí mismo.',
       ],
       answers: [
-        {question: 'Poco de acuerdo', value: 1},
-        {question: 'Nada de acuerdo', value: 2},
-        {question: 'Ni de acuerdo ni en desacuerdo', value: 3},
-        {question: 'Bastante de acuerdo', value: 4},
-        {question: 'Totalmente de acuerdo', value: 5},
+        {answer: 'Poco de acuerdo', value: 1},
+        {answer: 'Nada de acuerdo', value: 2},
+        {answer: 'Ni de acuerdo ni en desacuerdo', value: 3},
+        {answer: 'Bastante de acuerdo', value: 4},
+        {answer: 'Totalmente de acuerdo', value: 5},
       ],
       results: [
         {
-          baremo: '0-25',
+          baremo: '0-12.5',
           message:
             'Tus niveles de depresión parecen estar en un rango bajo. Si tienes inquietudes, considera hablar con un profesional.',
         },
         {
-          baremo: '25-50',
+          baremo: '12.5-25',
           message:
             'Podrías estar experimentando algunos síntomas leves de depresión. Consultar con un especialista puede ser beneficioso.',
         },
         {
-          baremo: '50-75',
+          baremo: '25-37.5',
           message:
             'Estás mostrando signos de depresión moderada. Buscar apoyo profesional es importante.',
         },
         {
-          baremo: '75-100',
+          baremo: '37.5-50',
           message:
             'Tus respuestas sugieren que estás experimentando niveles altos de depresión. Busca ayuda profesional para mejorar tu bienestar.',
         },
@@ -175,11 +175,11 @@ export const DATA_API = {
         'Mis relaciones personales se han visto afectadas debido a mi uso excesivo de redes sociales.',
       ],
       answers: [
-        {question: 'Poco de acuerdo', value: 1},
-        {question: 'Nada de acuerdo', value: 2},
-        {question: 'Ni de acuerdo ni en desacuerdo', value: 3},
-        {question: 'Bastante de acuerdo', value: 4},
-        {question: 'Totalmente de acuerdo', value: 5},
+        {answer: 'Poco de acuerdo', value: 1},
+        {answer: 'Nada de acuerdo', value: 2},
+        {answer: 'Ni de acuerdo ni en desacuerdo', value: 3},
+        {answer: 'Bastante de acuerdo', value: 4},
+        {answer: 'Totalmente de acuerdo', value: 5},
       ],
       results: [
         {
@@ -223,11 +223,11 @@ export const DATA_API = {
         'Siento que merezco amor y cuidado de los demás.',
       ],
       answers: [
-        {question: 'Poco de acuerdo', value: 1},
-        {question: 'Nada de acuerdo', value: 2},
-        {question: 'Ni de acuerdo ni en desacuerdo', value: 3},
-        {question: 'Bastante de acuerdo', value: 4},
-        {question: 'Totalmente de acuerdo', value: 5},
+        {answer: 'Poco de acuerdo', value: 1},
+        {answer: 'Nada de acuerdo', value: 2},
+        {answer: 'Ni de acuerdo ni en desacuerdo', value: 3},
+        {answer: 'Bastante de acuerdo', value: 4},
+        {answer: 'Totalmente de acuerdo', value: 5},
       ],
       results: [
         {
@@ -271,11 +271,11 @@ export const DATA_API = {
         'Siento somnolencia excesiva durante el día.',
       ],
       answers: [
-        {question: 'Poco de acuerdo', value: 1},
-        {question: 'Nada de acuerdo', value: 2},
-        {question: 'Ni de acuerdo ni en desacuerdo', value: 3},
-        {question: 'Bastante de acuerdo', value: 4},
-        {question: 'Totalmente de acuerdo', value: 5},
+        {answer: 'Poco de acuerdo', value: 1},
+        {answer: 'Nada de acuerdo', value: 2},
+        {answer: 'Ni de acuerdo ni en desacuerdo', value: 3},
+        {answer: 'Bastante de acuerdo', value: 4},
+        {answer: 'Totalmente de acuerdo', value: 5},
       ],
       results: [
         {
@@ -317,11 +317,11 @@ export const DATA_API = {
         'Soy resiliente y puedo recuperarme de adversidades emocionales.',
       ],
       answers: [
-        {question: 'Poco de acuerdo', value: 1},
-        {question: 'Nada de acuerdo', value: 2},
-        {question: 'Ni de acuerdo ni en desacuerdo', value: 3},
-        {question: 'Bastante de acuerdo', value: 4},
-        {question: 'Totalmente de acuerdo', value: 5},
+        {answer: 'Poco de acuerdo', value: 1},
+        {answer: 'Nada de acuerdo', value: 2},
+        {answer: 'Ni de acuerdo ni en desacuerdo', value: 3},
+        {answer: 'Bastante de acuerdo', value: 4},
+        {answer: 'Totalmente de acuerdo', value: 5},
       ],
       results: [
         {
@@ -363,11 +363,11 @@ export const DATA_API = {
         'Siento que carezco de apoyo emocional en mi vida.',
       ],
       answers: [
-        {question: 'Poco de acuerdo', value: 1},
-        {question: 'Nada de acuerdo', value: 2},
-        {question: 'Ni de acuerdo ni en desacuerdo', value: 3},
-        {question: 'Bastante de acuerdo', value: 4},
-        {question: 'Totalmente de acuerdo', value: 5},
+        {answer: 'Poco de acuerdo', value: 1},
+        {answer: 'Nada de acuerdo', value: 2},
+        {answer: 'Ni de acuerdo ni en desacuerdo', value: 3},
+        {answer: 'Bastante de acuerdo', value: 4},
+        {answer: 'Totalmente de acuerdo', value: 5},
       ],
       results: [
         {

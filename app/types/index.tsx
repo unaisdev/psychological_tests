@@ -6,7 +6,7 @@ export type Category = {
 };
 
 export type Answer = {
-  question: string;
+  answer: string;
   value: number;
 };
 
