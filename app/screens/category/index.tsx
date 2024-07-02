@@ -2,20 +2,22 @@ import React from 'react';
 
 import {Button, Text} from '@app/components';
 import Layout from '@app/components/Layout';
-import {RouteProp} from '@react-navigation/native';
+import {NavigationProp, RouteProp} from '@react-navigation/native';
 import {NavigationStackScreens} from '@app/navigation';
 import {ScrollView, StyleSheet, TouchableOpacity, View} from 'react-native';
-import useStackNavigation from '@app/navigation/hooks/useStackNavigation';
+
 import {GoBack} from '@app/constants/icons';
 import {useDataContext} from '@app/context/Data/hooks/useDataContext';
 
 const CategoryScreen = ({
   route,
+  navigation,
 }: {
+  navigation: NavigationProp<NavigationStackScreens, 'Category'>;
   route: RouteProp<NavigationStackScreens, 'Category'>;
 }) => {
   const {name, desc, id} = route.params;
-  const navigation = useStackNavigation();
+
   const {data} = useDataContext();
 
   return (

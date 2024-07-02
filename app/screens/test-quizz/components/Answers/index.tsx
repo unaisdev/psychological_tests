@@ -1,24 +1,44 @@
 import React from 'react';
-import {useActiveTestContext} from '@app/context/Test/hooks/useActiveTestContext';
+
 import {Checkbox} from 'react-native-paper';
+import {FlashList} from '@shopify/flash-list';
+import {TestContextType} from '@app/context/Test';
+import {Answer} from '@app/types';
+import {FlatList} from 'react-native';
+interface AnswersProps {
+  answers: Answer[];
+  selectedOptions: number[];
+  questionIndex: number;
+  handleCheckboxChange: (answerIndex: number, questionIndex: number) => void;
+}
 
-const Answers = () => {
-  const {answers, selectedOptions, questionIndex, handleCheckboxChange} =
-    useActiveTestContext();
-
-  return answers?.map((answer, index) => {
-    return (
-      <Checkbox.Item
-        key={answer.answer}
-        label={answer.answer}
-        labelStyle={{fontSize: 14}}
-        status={
-          selectedOptions[questionIndex] === index + 1 ? 'checked' : 'unchecked'
-        }
-        onPress={() => handleCheckboxChange(index + 1, questionIndex)}
-      />
-    );
-  });
+const Answers: React.FC<AnswersProps> = ({
+  answers,
+  selectedOptions,
+  questionIndex,
+  handleCheckboxChange,
+}) => {
+  return (
+    <FlatList
+      data={answers}
+      renderItem={({item: answer, index}) => {
+        return (
+          <Checkbox.Item
+            style={{}}
+            key={answer.answer}
+            label={answer.answer}
+            labelStyle={{fontSize: 14}}
+            status={
+              selectedOptions[questionIndex] === index + 1
+                ? 'checked'
+                : 'unchecked'
+            }
+            onPress={() => handleCheckboxChange(index + 1, questionIndex)}
+          />
+        );
+      }}
+    />
+  );
 };
 
-export default Answers;
+export default React.memo(Answers);

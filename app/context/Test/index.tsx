@@ -1,13 +1,14 @@
 import React, {
   PropsWithChildren,
   createContext,
+  useCallback,
   useMemo,
   useState,
 } from 'react';
 import {Answer, Test} from '@app/types';
 import {useDataContext} from '../Data/hooks/useDataContext';
 
-type TestContextType = {
+export type TestContextType = {
   activeTest: Test | undefined;
   selectedValues: number[];
   selectedOptions: number[];
@@ -75,34 +76,37 @@ export const TestProvider = ({children}: PropsWithChildren) => {
     }
   };
 
-  const handleCheckboxChange = (answerIndex: number, questionIndex: number) => {
-    if (processing || !answers || !activeTest) {
-      return;
-    }
+  const handleCheckboxChange = useCallback(
+    (answerIndex: number, questionIndex: number) => {
+      if (processing || !answers || !activeTest) {
+        return;
+      }
 
-    setProcessing(true);
+      setProcessing(true);
 
-    setSelectedOptions(prevOptions => {
-      return prevOptions.map((option, index) => {
-        if (index === questionIndex) {
-          return answers[answerIndex - 1].value; // Use the value from Answer type
-        }
-        return option;
+      setSelectedOptions(prevOptions => {
+        return prevOptions.map((option, index) => {
+          if (index === questionIndex) {
+            return answers[answerIndex - 1].value; // Use the value from Answer type
+          }
+          return option;
+        });
       });
-    });
 
-    setSelectedValues(prevValues => {
-      prevValues[questionIndex] = answers[answerIndex - 1].value;
+      setSelectedValues(prevValues => {
+        prevValues[questionIndex] = answers[answerIndex - 1].value;
 
-      const questionsAnswered = prevValues.filter(
-        option => option !== 0,
-      ).length;
-      const newProgress = questionsAnswered / activeTest.questions.length;
-      setProgress(newProgress);
-      setProcessing(false);
-      return [...prevValues];
-    });
-  };
+        const questionsAnswered = prevValues.filter(
+          option => option !== 0,
+        ).length;
+        const newProgress = questionsAnswered / activeTest.questions.length;
+        setProgress(newProgress);
+        setProcessing(false);
+        return [...prevValues];
+      });
+    },
+    [answers, activeTest, processing],
+  );
 
   const answered = progress === 1 ? true : false;
 

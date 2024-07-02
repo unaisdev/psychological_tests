@@ -5,26 +5,22 @@ import {Button, Text} from '@app/components';
 import {NavigationStackScreens} from '@app/navigation';
 import {RouteProp} from '@react-navigation/native';
 import useStackNavigation from '@app/hooks/useStackNavigation';
-import {
-  GoBack,
-  RefreshIcon,
-  SwiperLeftArrow,
-  SwiperRightArrow,
-} from '@app/constants/icons';
-import {ScrollView, StyleSheet, TouchableOpacity, View} from 'react-native';
-import {ActivityIndicator, ProgressBar} from 'react-native-paper';
+import {GoBack, RefreshIcon} from '@app/constants/icons';
+import {CellContainer, FlashList} from '@shopify/flash-list';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import {ProgressBar} from 'react-native-paper';
 import {useActiveTestContext} from '@app/context/Test/hooks/useActiveTestContext';
-import Swiper from 'react-native-swiper';
-import SwiperPagination from '@app/components/SwiperPagination';
+import {SwiperFlatList} from 'react-native-swiper-flatlist';
 import Question from './components/Question';
+import SwiperPagination from '@app/components/SwiperPagination';
 
 const TestQuizzScreen = ({
   route,
 }: {
   route: RouteProp<NavigationStackScreens, 'Test'>;
 }) => {
-  const swiperRef = useRef<Swiper>(null);
   const test = route.params;
+  const swiperRef = useRef<SwiperFlatList>(null);
   const navigation = useStackNavigation();
   const {
     progress,
@@ -36,7 +32,7 @@ const TestQuizzScreen = ({
 
   const reset = () => {
     resetTest();
-    swiperRef.current?.scrollTo(0);
+    // swiperRef.current?.scrollTo(0);
   };
 
   const handleGoBack = () => {
@@ -44,11 +40,11 @@ const TestQuizzScreen = ({
     navigation.goBack();
   };
 
-  useEffect(() => {
-    console.log(currentQuestionIndex);
+  // useEffect(() => {
+  //   console.log(currentQuestionIndex);
 
-    swiperRef.current?.scrollTo(currentQuestionIndex);
-  }, [swiperRef, currentQuestionIndex]);
+  //   swiperRef.current?.scrollTo(currentQuestionIndex);
+  // }, [swiperRef, currentQuestionIndex]);
 
   return (
     <Layout style={{flex: 1}}>
@@ -100,36 +96,29 @@ const TestQuizzScreen = ({
           rowGap: 32,
           paddingBottom: 32,
         }}>
-        <Swiper
+        <SwiperFlatList
           ref={swiperRef}
-          loop={false}
-          loadMinimal={true}
-          loadMinimalSize={0}
-          loadMinimalLoader={<ActivityIndicator />}
-          nextButton={<SwiperRightArrow color="black" />}
-          prevButton={<SwiperLeftArrow color="black" />}
-          renderPagination={(index, total, swiper) => (
-            <SwiperPagination index={index} swiper={swiper} total={total} />
+          disableGesture
+          onChangeIndex={index => setQuestionIndex(index.index)}
+          PaginationComponent={props => (
+            <SwiperPagination
+              index={props.paginationIndex}
+              scrollTo={props.scrollToIndex}
+              total={props.size}
+            />
           )}
-          onIndexChanged={index => setQuestionIndex(index)}
-          index={currentQuestionIndex}
-          buttonWrapperStyle={{opacity: 0.4}}
-          removeClippedSubviews>
-          {test.questions.map((question, questionIndex) => {
+          showPagination
+          data={test.questions}
+          renderItem={({item: question, index: questionIndex}) => {
             console.log('MOUNTING', new Date());
             return (
-              <ScrollView
-                contentContainerStyle={{flex: 1, rowGap: 16}}
-                key={question}
-                style={{}}>
-                <Question
-                  question={question} // Pasa el texto de la pregunta
-                  questionIndex={questionIndex}
-                />
-              </ScrollView>
+              <Question
+                question={question} // Pasa el texto de la pregunta
+                questionIndex={questionIndex}
+              />
             );
-          })}
-        </Swiper>
+          }}
+          index={currentQuestionIndex}></SwiperFlatList>
         <View
           style={[
             styles.inlineAround,
@@ -146,17 +135,24 @@ const TestQuizzScreen = ({
           ]}>
           {currentQuestionIndex !== 0 && (
             <TouchableOpacity
-              onPress={() =>
-                swiperRef.current?.scrollTo(currentQuestionIndex - 1)
-              }>
+              onPress={() => {
+                swiperRef.current?.scrollToIndex({
+                  index: currentQuestionIndex - 1,
+                });
+              }}>
               <Text style={{fontWeight: '500'}}>Anterior</Text>
             </TouchableOpacity>
           )}
           {currentQuestionIndex !== test.questions.length - 1 && (
             <TouchableOpacity
               style={styles.nextButton}
-              onPress={() =>
-                swiperRef.current?.scrollTo(currentQuestionIndex + 1)
+              onPress={
+                () => {
+                  swiperRef.current?.scrollToIndex({
+                    index: currentQuestionIndex + 1,
+                  });
+                }
+                // swiperRef.current?.scrollTo(currentQuestionIndex + 1)
               }>
               <Text style={{color: 'white'}}>Siguiente</Text>
             </TouchableOpacity>

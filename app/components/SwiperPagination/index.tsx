@@ -1,12 +1,15 @@
 import React from 'react';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
-import Swiper from 'react-native-swiper';
-import Text from '../Text';
+
 import {useActiveTestContext} from '@app/context/Test/hooks/useActiveTestContext';
 
-type Props = {index: number; total: number; swiper: Swiper};
+type Props = {
+  index?: number;
+  total: number;
+  scrollTo: (item: {index: number}) => void;
+};
 
-const SwiperPagination = ({swiper, total}: Props) => {
+const SwiperPagination = ({scrollTo, total}: Props) => {
   const {selectedOptions, questionIndex} = useActiveTestContext();
 
   return (
@@ -14,7 +17,7 @@ const SwiperPagination = ({swiper, total}: Props) => {
       {new Array(total).fill(null).map((_, i) => (
         <TouchableOpacity
           style={{padding: 2}}
-          onPress={() => swiper.scrollTo(i)}
+          onPress={() => scrollTo({index: i})}
           key={i}>
           <View
             style={[
