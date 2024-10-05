@@ -18,25 +18,28 @@ const Answers: React.FC<AnswersProps> = ({
   questionIndex,
   handleCheckboxChange,
 }) => {
+  const selectedOption = selectedOptions[questionIndex];
+  console.log('selectedOption', selectedOption);
+  const renderItem = ({item: answer, index}: {item: Answer; index: number}) => {
+    const isChecked = selectedOption === index + 1;
+
+    return (
+      <Checkbox.Item
+        style={{}}
+        key={answer.answer}
+        label={answer.answer}
+        labelStyle={{fontSize: 14}}
+        status={isChecked ? 'checked' : 'unchecked'}
+        onPress={() => handleCheckboxChange(index + 1, questionIndex)}
+      />
+    );
+  };
+
   return (
     <FlatList
       data={answers}
-      renderItem={({item: answer, index}) => {
-        return (
-          <Checkbox.Item
-            style={{}}
-            key={answer.answer}
-            label={answer.answer}
-            labelStyle={{fontSize: 14}}
-            status={
-              selectedOptions[questionIndex] === index + 1
-                ? 'checked'
-                : 'unchecked'
-            }
-            onPress={() => handleCheckboxChange(index + 1, questionIndex)}
-          />
-        );
-      }}
+      renderItem={renderItem}
+      keyExtractor={item => item.answer}
     />
   );
 };
